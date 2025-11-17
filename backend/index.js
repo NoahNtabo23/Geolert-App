@@ -29,7 +29,18 @@ const partners = [
   }
 ];
 const { hashPassword, comparePassword, signToken, requireAuth } = require("./auth");
-app.use(cors({ origin: "http://localhost:3000" }));//Connect backend to frontend
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://geolert.aifec.africa"
+];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true
+  })
+);
+//Connect backend to frontend
 const axios = require("axios");
 const {Disaster,Partner} = require("./config");//Importing collections from config.js
 
@@ -277,5 +288,6 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-
-app.listen(4000,()=>console.log("Up and running on port 4000"));
+  //START THE SERVER
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
