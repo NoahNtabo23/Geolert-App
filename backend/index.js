@@ -9,7 +9,6 @@ const model = genAI.getGenerativeModel({
 
 const express = require("express");
 const app=express(); 
-
 const cors = require("cors");
 //CREATE STATIC PARTNER FOR TESTING PURPOSES ONLY
 const partners = [
@@ -30,14 +29,24 @@ const partners = [
 ];
 const { hashPassword, comparePassword, signToken, requireAuth } = require("./auth");
 const allowedOrigins = [
-  "http://localhost:3000",
-  "https://geolert.aifec.africa"
+  "http://localhost:3000",          
+  "http://127.0.0.1:3000",
+  "http://localhost:5173",          
+  "https://geolert.aifec.africa",   
+  "https://geolert.vercel.app",     
+  "https://geolert-frontend.onrender.com" 
 ];
 
 app.use(
   cors({
-    origin: allowedOrigins,
-    credentials: true
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("Not allowed by CORS"));
+    },
+    methods: "GET,POST,PUT,PATCH,DELETE",
+    allowedHeaders: "Content-Type, Authorization",
   })
 );
 //Connect backend to frontend
@@ -47,7 +56,7 @@ const {Disaster,Partner} = require("./config");//Importing collections from conf
 const fetch = require("node-fetch");
 
 app.use(express.json());
-app.use(cors());
+
 
 
 

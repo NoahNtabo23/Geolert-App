@@ -20,9 +20,13 @@ export default function Home() {
   const [showChat, setShowChat] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
 
+  console.log("API URL =>", process.env.NEXT_PUBLIC_API_BASE_URL);
+
+
  const fetchReports = async () => {
   try {
-    const res = await fetch("http://localhost:4000/disasters/reports");
+   const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/disasters/reports`);
+
     const data = await res.json();
 
     // Convert backend fields → frontend structure

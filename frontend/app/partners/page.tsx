@@ -69,7 +69,7 @@ async function apiFetch(path: string, opts: any = {}) {
   const token = localStorage.getItem("partnerToken");
   const headers = { "Content-Type": "application/json", ...(opts.headers || {}) };
   if (token) headers["Authorization"] = `Bearer ${token}`;
-  const res = await fetch(`http://localhost:4000${path}`, { ...opts, headers });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${path}`, { ...opts, headers });
   if (res.status === 401) {
     // token invalid → logout
     setIsLoggedIn(false);
@@ -140,7 +140,7 @@ async function loadDashboardData(token?: string) {
   if (!loginData.email || !loginData.password) return;
 
   try {
-    const res = await fetch("http://localhost:4000/partners/login", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/partners/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: loginData.email, password: loginData.password }),

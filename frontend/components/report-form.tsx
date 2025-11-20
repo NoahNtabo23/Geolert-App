@@ -149,7 +149,7 @@ export default function ReportForm({ onSubmit, onClose }: ReportFormProps) {
       };
 
 
-      const res = await fetch("http://localhost:4000/disasters/report", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/disasters/report`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

@@ -51,7 +51,7 @@ export default function ChatBot({ onClose }: ChatBotProps) {
 
     // Gemini AIbot response
       try {
-  const res = await fetch("http://localhost:4000/api/chat", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/chat`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ message: input }),

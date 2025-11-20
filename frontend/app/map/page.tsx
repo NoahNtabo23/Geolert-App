@@ -48,7 +48,8 @@ export default function LiveMapPage() {
   if (isDark) document.documentElement.classList.add("dark");
 
   // Fetch live incidents
-  fetch("http://localhost:4000/disasters/reports")
+  fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/disasters/reports`
+)
     .then((res) => res.json())
     .then((data) => {
       const formatted = data.map((d: any) => ({
